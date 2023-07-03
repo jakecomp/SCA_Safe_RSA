@@ -113,16 +113,23 @@ int main()
     double execution_time;
 
     start_time = clock();
-    ciphertext = rsaEncrypt(plaintext, e, n);
-    end_time = clock();
+    for (int i = 0; i < 500; i++)
+    {
+        for (int i = 0; i < 200000; i++)
+        {
+            ciphertext = rsaEncrypt(plaintext, e, n);
+        }
+    }
+        end_time = clock();
 
-    execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("Encrypted value: %d\n", ciphertext);
-    printf("Encryption Time: %f seconds\n", execution_time);
+        execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+        printf("Encrypted value: %d\n", ciphertext);
+        printf("Encryption Time: %f seconds\n", execution_time);
+        printf("Start Time: %ld, End Time: %ld\n", start_time, end_time);
 
-    // Step 6: Decrypt the ciphertext
-    decrypted = rsaDecrypt(ciphertext, d, n);
-    printf("Decrypted value: %d\n", decrypted);
+        // Step 6: Decrypt the ciphertext
+        decrypted = rsaDecrypt(ciphertext, d, n);
+        printf("Decrypted value: %d\n", decrypted);
 
-    return 0;
-}
+        return 0;
+    }
