@@ -43,7 +43,65 @@ int extendedGCD(int a, int b, int *x, int *y)
     return gcd_result;
 }
 
-// Function to perform modular exponentiation
+// int modularExponentiationModified(int base, int exponent, int modulus)
+// {
+//     int result = 1;
+//     int mask = 1;
+
+//     for (int i = 0; i < sizeof(int) * 8; i++)
+//     {
+//         if (exponent & mask)
+//         {
+//             result = (result * base) % modulus;
+//         }
+//         base = (base * base) % modulus;
+//         mask <<= 1;
+//     }
+
+//     return result;
+// }
+
+int modularExponentiationModified(int base, int exponent, int modulus)
+{
+    int i;
+    int result;
+    int fake_result;
+    int temp;
+    int fake_exp;
+    int exponent_val = exponent;
+    for (i = 1; i < modulus; i++)
+    {
+        if (i == base){
+            result = 1;
+            base = base % modulus;
+
+            while (exponent > 0)
+            {
+                if (exponent & 1)
+                    result = (result * base) % modulus;
+                exponent = exponent >> 1;
+                base = (base * base) % modulus;
+            }
+        } else {
+            fake_result = 1;
+            fake_exp = exponent_val;
+            temp = i;
+            temp = temp % modulus;
+
+            while (fake_exp > 0)
+            {
+                if (fake_exp & 1)
+                    fake_result = (fake_result * temp) % modulus;
+                fake_exp = fake_exp >> 1;
+                temp = (temp * temp) % modulus;
+            }
+        }
+    }
+
+    return result;
+}
+
+//Function to perform modular exponentiation
 int modularExponentiation(int base, int exponent, int modulus)
 {
     if (modulus == 1)
@@ -66,13 +124,13 @@ int modularExponentiation(int base, int exponent, int modulus)
 // Function to encrypt an integer using the RSA algorithm
 int rsaEncrypt(int plaintext, int e, int n)
 {
-    return modularExponentiation(plaintext, e, n);
+    return modularExponentiationModified(plaintext, e, n);
 }
 
 // Function to decrypt a ciphertext using the RSA algorithm
 int rsaDecrypt(int ciphertext, int d, int n)
 {
-    return modularExponentiation(ciphertext, d, n);
+    return modularExponentiationModified(ciphertext, d, n);
 }
 
 int main()
@@ -113,23 +171,23 @@ int main()
     double execution_time;
 
     start_time = clock();
-    for (int i = 0; i < 500; i++)
+    for (int i = 0; i < 2; i++)
     {
-        for (int i = 0; i < 200000; i++)
+    for (int i = 0; i < 10000; i++)
         {
             ciphertext = rsaEncrypt(plaintext, e, n);
         }
     }
-        end_time = clock();
+    end_time = clock();
 
-        execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-        printf("Encrypted value: %d\n", ciphertext);
-        printf("Encryption Time: %f seconds\n", execution_time);
-        printf("Start Time: %ld, End Time: %ld\n", start_time, end_time);
+    execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    printf("Encrypted value: %d\n", ciphertext);
+    printf("Encryption Time: %f seconds\n", execution_time);
+    printf("Start Time: %ld, End Time: %ld\n", start_time, end_time);
 
-        // Step 6: Decrypt the ciphertext
-        decrypted = rsaDecrypt(ciphertext, d, n);
-        printf("Decrypted value: %d\n", decrypted);
+    // Step 6: Decrypt the ciphertext
+    decrypted = rsaDecrypt(ciphertext, d, n);
+    printf("Decrypted value: %d\n", decrypted);
 
-        return 0;
-    }
+    return 0;
+}
