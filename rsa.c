@@ -155,7 +155,7 @@ int main()
 
     start_time = clock();
     int i;
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 200000; i++)
     {
         ciphertext = rsaEncrypt(plaintext, e, n);
     }
