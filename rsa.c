@@ -43,24 +43,6 @@ int extendedGCD(int a, int b, int *x, int *y)
     return gcd_result;
 }
 
-// int modularExponentiationModified(int base, int exponent, int modulus)
-// {
-//     int result = 1;
-//     int mask = 1;
-
-//     for (int i = 0; i < sizeof(int) * 8; i++)
-//     {
-//         if (exponent & mask)
-//         {
-//             result = (result * base) % modulus;
-//         }
-//         base = (base * base) % modulus;
-//         mask <<= 1;
-//     }
-
-//     return result;
-// }
-
 int modularExponentiationModified(int base, int exponent, int modulus)
 {
     int i;
@@ -171,13 +153,12 @@ int main()
     double execution_time;
 
     start_time = clock();
-    for (int i = 0; i < 2; i++)
+    int i;
+    for (i = 0; i < 10000; i++)
     {
-    for (int i = 0; i < 10000; i++)
-        {
-            ciphertext = rsaEncrypt(plaintext, e, n);
-        }
+        ciphertext = rsaEncrypt(plaintext, e, n);
     }
+    
     end_time = clock();
 
     execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
