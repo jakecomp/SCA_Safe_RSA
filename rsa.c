@@ -51,9 +51,10 @@ int modularExponentiationModified(int base, int exponent, int modulus)
     int temp;
     int fake_exp;
     int exponent_val = exponent;
+    int base_const = base;
     for (i = 1; i < modulus; i++)
-    {
-        if (i == base){
+    {   
+        if (i == base_const){
             result = 1;
             base = base % modulus;
 
@@ -158,7 +159,6 @@ int main()
     {
         ciphertext = rsaEncrypt(plaintext, e, n);
     }
-    
     end_time = clock();
 
     execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
