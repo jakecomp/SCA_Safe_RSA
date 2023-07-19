@@ -107,13 +107,13 @@ int modularExponentiation(int base, int exponent, int modulus)
 // Function to encrypt an integer using the RSA algorithm
 int rsaEncrypt(int plaintext, int e, int n)
 {
-    return modularExponentiationModified(plaintext, e, n);
+    return modularExponentiation(plaintext, e, n);
 }
 
 // Function to decrypt a ciphertext using the RSA algorithm
 int rsaDecrypt(int ciphertext, int d, int n)
 {
-    return modularExponentiationModified(ciphertext, d, n);
+    return modularExponentiation(ciphertext, d, n);
 }
 
 int main()
