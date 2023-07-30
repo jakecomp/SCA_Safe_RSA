@@ -52,7 +52,7 @@ int modularExponentiationModified(int base, int exponent, int modulus)
     int fake_exp;
     int exponent_val = exponent;
     int base_const = base;
-    for (i = 1; i < modulus; i++)
+    for (i = modulus-1; i > 0; i--)
     {   
         if (i == base_const){
             result = 1;
