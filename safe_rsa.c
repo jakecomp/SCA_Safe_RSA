@@ -84,36 +84,16 @@ int modularExponentiationModified(int base, int exponent, int modulus)
     return result;
 }
 
-//Function to perform modular exponentiation
-int modularExponentiation(int base, int exponent, int modulus)
-{
-    if (modulus == 1)
-        return 0;
-
-    int result = 1;
-    base = base % modulus;
-
-    while (exponent > 0)
-    {
-        if (exponent & 1)
-            result = (result * base) % modulus;
-        exponent = exponent >> 1;
-        base = (base * base) % modulus;
-    }
-
-    return result;
-}
-
 // Function to encrypt an integer using the RSA algorithm
 int rsaEncrypt(int plaintext, int e, int n)
 {
-    return modularExponentiation(plaintext, e, n);
+    return modularExponentiationModified(plaintext, e, n);
 }
 
 // Function to decrypt a ciphertext using the RSA algorithm
 int rsaDecrypt(int ciphertext, int d, int n)
 {
-    return modularExponentiation(ciphertext, d, n);
+    return modularExponentiationModified(ciphertext, d, n);
 }
 
 int main()
@@ -155,7 +135,7 @@ int main()
 
     start_time = clock();
     int i;
-    for (i = 0; i < 200000; i++)
+    for (i = 0; i < 1000; i++)
     {
         ciphertext = rsaEncrypt(plaintext, e, n);
     }
